@@ -45,6 +45,7 @@ Welcome to my interactive personal portfolio! Built to represent my background i
 
 
 portfolio/
+
 ├── index.html # Main HTML structure
 
 ├── css/ # Custom stylesheets
