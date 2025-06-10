@@ -43,6 +43,7 @@ Welcome to my interactive personal portfolio! Built to represent my background i
 
 ## 📂 Project Structure
 
+
 portfolio/
 ├── index.html # Main HTML structure
 ├── css/ # Custom stylesheets
@@ -50,6 +51,7 @@ portfolio/
 ├── assets/ # Images, icons, fonts
 ├── Ritesh_Kumar.pdf # Resume (downloadable)
 └── README.md # You're here!
+
 
 
 
