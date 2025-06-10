@@ -76,4 +76,4 @@ git clone https://github.com/RiteshKumar2e/portfolio.git
 cd portfolio
 
 # Open with Live Server or any browser
-index.html
+https://riteshkumar2e.github.io/Portfolio/
