@@ -8,7 +8,7 @@
   <a href="https://github.com/RiteshKumar2e" target="_blank">
     <img src="https://img.shields.io/github/followers/RiteshKumar2e?label=Follow&style=social" />
   </a>
-  <a href="(https://riteshkumar2e.github.io/Portfolio/)" target="_blank">
+  <a href="https://riteshkumar2e.github.io/Portfolio/" target="_blank">
     <img src="https://img.shields.io/badge/Portfolio-Live-blueviolet" />
   </a>
   <a href="Ritesh_Kumar.pdf" target="_blank">
