@@ -791,22 +791,693 @@
       </div>
     </div>
 
-  <!-- Stats Section -->
-<div class="stats-grid animate-on-scroll" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 4rem;">
-  <div class="stat-card" style="text-align: center; padding: 2rem; background: rgb(255, 255, 255); border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border: 1px solid rgb(220, 220, 220);">
-    <h3 style="font-size: 2.5rem; font-weight: 800; color: rgb(26, 115, 232); margin-bottom: 0.5rem;">10+</h3>
-    <p style="color: rgb(85, 85, 85); font-weight: 500;">Projects Completed</p>
-  </div>
-  <div class="stat-card" style="text-align: center; padding: 2rem; background: rgb(255, 255, 255); border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border: 1px solid rgb(220, 220, 220);">
-    <h3 style="font-size: 2.5rem; font-weight: 800; color: rgb(26, 115, 232); margin-bottom: 0.5rem;">4</h3>
-    <p style="color: rgb(85, 85, 85); font-weight: 500;">Internships</p>
-  </div>
-  <div class="stat-card" style="text-align: center; padding: 2rem; background: rgb(255, 255, 255); border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border: 1px solid rgb(220, 220, 220);">
-    <h3 style="font-size: 2.5rem; font-weight: 800; color: rgb(26, 115, 232); margin-bottom: 0.5rem;">10+</h3>
-    <p style="color: rgb(85, 85, 85); font-weight: 500;">Technologies Mastered</p>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio Stats & Internships</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Enhanced Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: countUp 2s ease-out;
+        }
+
+        .stat-card p {
+            color: #555;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .stat-card:hover p {
+            color: #333;
+        }
+
+        /* Interactive Button */
+        .view-btn-container {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .view-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .view-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .view-btn:hover::before {
+            left: 100%;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        .view-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* Magic sparkles on button */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Internships Section */
+        .internships-section {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            z-index: 2;
+        }
+
+        .internships-section.show {
+            opacity: 1;
+            max-height: 5000px;
+        }
+
+        .internships-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .internship-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(20px);
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .internship-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .internship-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .internship-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .internship-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .internship-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .internship-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .internship-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .internship-company {
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .internship-duration {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .internship-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .skills-section {
+            margin-top: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .skills-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .skills-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.4s ease;
+        }
+
+        .internship-card:hover .skills-title::after {
+            width: 100%;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Pulse animation for skill tags */
+        .skill-tag:nth-child(odd) {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .skill-tag:nth-child(even) {
+            animation: pulse 2s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Keyframe animations */
+        @keyframes countUp {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .internships-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card h3 {
+                font-size: 2.5rem;
+            }
+            
+            .view-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Enhanced Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3 id="projects-count">0</h3>
+                <p>Projects Completed</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="internships-count">0</h3>
+                <p>Internships</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="tech-count">0</h3>
+                <p>Technologies Mastered</p>
+            </div>
+        </div>
+
+        <!-- Interactive Button -->
+        <div class="view-btn-container">
+            <button class="view-btn" onclick="toggleInternships()" id="toggleBtn">
+                <span id="btn-text">View My Internships</span>
+                <div class="sparkle" style="top: 20%; left: 20%;"></div>
+                <div class="sparkle" style="top: 70%; right: 20%; animation-delay: 0.5s;"></div>
+                <div class="sparkle" style="bottom: 20%; left: 50%; animation-delay: 1s;"></div>
+            </button>
+        </div>
+
+        <!-- Internships Section -->
+        <div class="internships-section" id="internships-section">
+            <div class="internships-grid">
+                <div class="internship-card">
+                    <div class="internship-title">🚀 Backend Intern</div>
+                    <div class="internship-company">TechMantra Global</div>
+                    <div class="internship-duration">May 2024 - July 2024 | Remote</div>
+                    <div class="internship-description">
+    <ul>
+        <li>Gained in-depth understanding of <strong>SpringBoot</strong> for backend development.</li>
+        <li>Proficient in designing, deploying, and managing scalable SpringBoot applications.</li>
+        <li>Implemented responsive UI using <strong>HTML</strong>, <strong>CSS</strong>, <strong>Bootstrap</strong>, and <strong>JavaScript</strong> to enhance user interaction and experience.</li>
+    </ul>
 </div>
-</section>
+
+                    <div class="skills-section">
+                        <div class="skills-title">💻 Skills Used:</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">SpringBoot</span>
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">Bootstrap</span>
+                            <span class="skill-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-title">🤖 Machine Learning Intern</div>
+                    <div class="internship-company">NIT Jamshedpur</div>
+                    <div class="internship-duration">May 2025 - July 2025 | Offline</div>
+                    <div class="internship-description">
+    <ul>
+        <li>Worked on a machine learning project focused on steel surface defect detection using real-world industrial datasets.</li>
+        <li>Utilized computer vision techniques such as edge detection, morphological operations, and feature extraction for defect classification.</li>
+        <li>Achieved <strong>99.31%</strong> accuracy on a 7-class steel surface dataset.</li>
+        <li>Achieved <strong>99.72%</strong> accuracy on the NEU-DET dataset.</li>
+    </ul>
+</div>
+
+                    <div class="skills-section">
+                        <div class="skills-title">🧠 Skills Used:</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Machine Learning</span>
+                            <span class="skill-tag">Computer Vision</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Feature Extraction</span>
+                            <span class="skill-tag">Deep Learning</span>
+                            <span class="skill-tag">OpenCV</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-title">📊 Data Science Intern</div>
+                    <div class="internship-company">AICTE–Slash Mark IT Startup</div>
+                    <div class="internship-duration">Dec 2024 - Jan 2025 | Remote</div>
+                    <div class="internship-description">
+    <ul>
+        <li>Gained a solid foundation in key data science concepts such as data cleaning, data visualization, and exploratory data analysis (EDA).</li>
+        <li>Worked with tools like <strong>Python</strong>, <strong>Pandas</strong>, and <strong>Jupyter Notebook</strong> to analyze and manipulate datasets.</li>
+        <li>Built mini-projects to apply theoretical knowledge to real-world data problems.</li>
+    </ul>
+</div>
+
+                    <div class="skills-section">
+                        <div class="skills-title">📈 Skills Used:</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">Jupyter Notebook</span>
+                            <span class="skill-tag">Data Cleaning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="internship-card">
+                    <div class="internship-title"> ML Intern</div>
+                    <div class="internship-company">AICTE–Slash Mark IT Startup</div>
+                    <div class="internship-duration">May 2024 - July 2024 | Remote</div>
+                    <div class="internship-description">
+    <ul>
+        <li>Worked with ML algorithms like <strong>Linear/Logistic Regression</strong>, <strong>Decision Trees</strong>, and <strong>K-Means</strong>.</li>
+        <li>Built models using <strong>Python</strong>, <strong>scikit-learn</strong>, and <strong>NumPy</strong>.</li>
+        <li>Used <strong>Jupyter Notebook</strong> for data preprocessing, training, and visualization.</li>
+        <li>Explored key challenges like overfitting, underfitting, and feature selection.</li>
+    </ul>
+</div>
+
+                    <div class="skills-section">
+                        <div class="skills-title">🧠 Skills Used:</div>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">scikit-learn</span>
+                            <span class="skill-tag">NumPy</span>
+                            <span class="skill-tag">Jupyter Notebook</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isVisible = false;
+        let animationInProgress = false;
+
+        // Create floating particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Animate counters
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.ceil(current);
+                }
+            }, 40);
+        }
+
+        // Toggle internships with enhanced animation
+        function toggleInternships() {
+            if (animationInProgress) return;
+            
+            animationInProgress = true;
+            const section = document.getElementById('internships-section');
+            const btnText = document.getElementById('btn-text');
+            const btn = document.getElementById('toggleBtn');
+            
+            // Add loading state
+            btn.style.pointerEvents = 'none';
+            
+            if (!isVisible) {
+                btnText.innerHTML = '<div class="loading"></div>';
+                
+                setTimeout(() => {
+                    section.classList.add('show');
+                    btnText.textContent = 'Hide Internships';
+                    isVisible = true;
+                    btn.style.pointerEvents = 'auto';
+                    animationInProgress = false;
+                    
+                    // Add stagger animation to skill tags
+                    const skillTags = document.querySelectorAll('.skill-tag');
+                    skillTags.forEach((tag, index) => {
+                        tag.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`;
+                    });
+                }, 500);
+            } else {
+                btnText.innerHTML = '<div class="loading"></div>';
+                
+                setTimeout(() => {
+                    section.classList.remove('show');
+                    btnText.textContent = 'View My Internships';
+                    isVisible = false;
+                    btn.style.pointerEvents = 'auto';
+                    animationInProgress = false;
+                }, 300);
+            }
+        }
+
+        // Add click effect to skill tags
+        function addSkillClickEffect() {
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    this.style.animation = 'pulse 0.6s ease-out';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 600);
+                });
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Animate counters on page load
+            setTimeout(() => {
+                animateCounter(document.getElementById('projects-count'), 10);
+                animateCounter(document.getElementById('internships-count'), 4);
+                animateCounter(document.getElementById('tech-count'), 10);
+            }, 500);
+            
+            // Add skill click effects
+            addSkillClickEffect();
+            
+            // Add parallax effect to particles
+            document.addEventListener('mousemove', (e) => {
+                const particles = document.querySelectorAll('.particle');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                particles.forEach((particle, index) => {
+                    const speed = (index % 3 + 1) * 0.5;
+                    particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                });
+            });
+        });
+
+        // Add keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const activeElement = document.activeElement;
+                if (activeElement.classList.contains('view-btn')) {
+                    toggleInternships();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
 
 <!DOCTYPE html>
 <html lang="en">
