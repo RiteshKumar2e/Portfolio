@@ -665,6 +665,34 @@
         flex-direction: column;
         text-align: center;
       }
+      
+      .project-card,
+      .skill-card {
+        padding: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .project-card {
+        padding: 1.25rem;
+      }
+      
+      .project-card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .section-container p {
+        font-size: 1rem;
+      }
+      
+      .container {
+        padding: 0 0.75rem;
+      }
     }
 
     /* Animation utilities */
